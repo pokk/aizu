@@ -45,7 +45,7 @@ def run_magic_tiles(magic_tiles, past_matrix):
 
 def main():
     while True:
-        c, r = map(int, input().split(' '))
+        c, r = map(int, input().split())
         if c == 0 and r == 0:
             break
 

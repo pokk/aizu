@@ -26,7 +26,7 @@ def main():
         is_empty = True
         record = {}
         for _ in range(int(line)):
-            employee = input().split(' ')
+            employee = input().split()
             total = int(employee[1]) * int(employee[2])
 
             if total >= 1000000:

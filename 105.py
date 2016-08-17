@@ -16,7 +16,7 @@ def main():
     book_index = {}
     while True:
         try:
-            word, page = input().split(' ')
+            word, page = input().split()
             page = int(page)
             if word in book_index:
                 book_index[word].append(page)

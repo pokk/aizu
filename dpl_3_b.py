@@ -39,13 +39,13 @@ def new_max_rectangle(array):
 
 
 def algorithm():
-    r, c = map(int, input().split(' '))
+    r, c = map(int, input().split())
 
     ans_array = [0 for _ in range(c)]
     input_matrix = []
 
     for _ in range(r):
-        input_matrix.append(list(map(int, input().split(' '))))
+        input_matrix.append(list(map(int, input().split())))
 
     largest_square = 0
 

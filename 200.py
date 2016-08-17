@@ -29,7 +29,7 @@ def dijkstra(path_map, start=0):
 
 def algorithm():
     while True:
-        n, s = map(int, input().split(' '))
+        n, s = map(int, input().split())
         if n == 0 and s == 0:
             break
 
@@ -41,13 +41,13 @@ def algorithm():
 
         # Set two maps.
         for _ in range(n):
-            x, y, money, time = map(int, input().split(' '))
+            x, y, money, time = map(int, input().split())
             x, y = x - 1, y - 1
             g_money[x][y], g_time = money, time
 
         # Calculate the shortest path.
         for n in range(int(input())):
-            start, end, category = list(map(int, input().split(' ')))
+            start, end, category = list(map(int, input().split()))
             m = {0: g_money, 1: g_time}.get(category)
             ans = dijkstra(m, start - 1)
             print(ans[end - 1])

@@ -32,7 +32,7 @@ def main():
 
         bottom_total = [0 for _ in range(n)]
         for _ in range(n):
-            each_line = list(map(int, input().split(' ')))
+            each_line = list(map(int, input().split()))
             output_res(each_line)
             bottom_total = [x + y for x, y in zip(bottom_total, each_line)]
 
