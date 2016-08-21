@@ -1,6 +1,5 @@
 """ Created by Jieyi on 7/28/16. """
 import sys
-from copy import deepcopy
 
 
 def dijkstra(path_map, start=0):
@@ -37,13 +36,13 @@ def algorithm():
         g_money = [[sys.maxsize for _ in range(s)] for _ in range(s)]
         for c in range(s):
             g_money[c][c] = 0
-        g_time = deepcopy(g_money)
+        g_time = g_money[:]
 
         # Set two maps.
         for _ in range(n):
-            x, y, money, time = map(int, input().split())
+            x, y, m, t = map(int, input().split())
             x, y = x - 1, y - 1
-            g_money[x][y], g_time = money, time
+            g_money[x][y], g_time[x][y] = m, t
 
         # Calculate the shortest path.
         for n in range(int(input())):
