@@ -1,7 +1,5 @@
 """ Created by Jieyi on 7/2/16. """
 
-""" Created by Jieyi on 8/16/16. """
-
 
 def algorithm():
     def down_jump(x, y, times):
