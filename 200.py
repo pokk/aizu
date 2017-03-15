@@ -1,29 +1,31 @@
 """ Created by Jieyi on 7/28/16. """
+from collections import defaultdict
+import io
 import sys
+import heapq
+
+if len(sys.argv) > 1:
+    filename = sys.argv[1]
+    inp = ''.join(open(filename, "r").readlines())
+    sys.stdin = io.StringIO(inp)
 
 
-def dijkstra(path_map, start=0):
-    arr_shortest_path = path_map[start]
-    stack = []
+def dijkstra(graph, start, end, total_vertices):
+    h = []
+    shortest_path = [0 if i == start else sys.maxsize for i in range(total_vertices + 1)]
+    heapq.heappush(h, (start, 0))
 
-    # Until all vertices put into stack.
-    while 1:
-        if len(stack) is len(arr_shortest_path):
+    while True:
+        vertex, value = heapq.heappop(h)
+        if end == vertex:
             break
 
-        # Pick the smallest value from the arr_shortest_path is not including vertices in the stack.
-        tmp_arr = arr_shortest_path[:]
-        for i in range(len(stack)):
-            tmp_arr[stack[i]] = sys.maxsize
-        mini_vertex = arr_shortest_path.index(min(tmp_arr))
-        stack.append(mini_vertex)
+        for k, v in graph.get(vertex):
+            if shortest_path[k] > value + v:
+                shortest_path[k] = value + v
+                heapq.heappush(h, (k, shortest_path[k]))
 
-        # Calculate the smallest value's vertex with all vertices which it could go.
-        for i in range(len(arr_shortest_path)):
-            if arr_shortest_path[i] > arr_shortest_path[mini_vertex] + path_map[mini_vertex][i]:
-                arr_shortest_path[i] = arr_shortest_path[mini_vertex] + path_map[mini_vertex][i]
-
-    return arr_shortest_path
+    return shortest_path
 
 
 def algorithm():
@@ -33,23 +35,23 @@ def algorithm():
             break
 
         # Create two maps.
-        g_money = [[sys.maxsize for _ in range(s)] for _ in range(s)]
-        for c in range(s):
-            g_money[c][c] = 0
-        g_time = g_money[:]
+        g_money = defaultdict(list)
+        g_time = defaultdict(list)
 
         # Set two maps.
         for _ in range(n):
-            x, y, m, t = map(int, input().split())
-            x, y = x - 1, y - 1
-            g_money[x][y], g_time[x][y] = m, t
+            start, end, money, time = map(int, input().split())
+            g_money[start].append((end, money))
+            g_money[end].append((start, money))
+            g_time[start].append((end, time))
+            g_time[end].append((start, time))
 
         # Calculate the shortest path.
         for n in range(int(input())):
             start, end, category = list(map(int, input().split()))
             m = {0: g_money, 1: g_time}.get(category)
-            ans = dijkstra(m, start - 1)
-            print(ans[end - 1])
+            ans = dijkstra(m, start, end, s)
+            print(ans[end])
 
 
 def main():
